@@ -1,32 +1,51 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { stringify } from 'querystring';
+import { CreateStudentDto, FindStudentResponseDto, StudentResponseDto, UpdateStudentDto } from './dto/student.dto';
 
 @Controller('students')
 export class StudentController {
     @Get()
-    getStudents(){
-        return "All Students"
+    getStudents(): FindStudentResponseDto[]{
+        return [
+            {
+                id: "abcd",
+                name:"John Doe",
+                teacher: "Luthor Doe"
+            }
+        ]
     }
 
     @Get('/:studentId')
     getStudentById(
         @Param('studentId') studentId: string
-    ){
-        return `Get Student With Id of ${studentId}`
+    ):FindStudentResponseDto{
+        return {
+            id: "abcd",
+            name:"John Doe",
+            teacher: "Luthor Doe"
+        }
     }
 
     @Post()
     createStudent(
-        @Body() body
-    ){
-        return `Create Student With The Following Data ${JSON.stringify(body)}`
+        @Body() body: CreateStudentDto
+    ):StudentResponseDto{
+        return {
+            id: "abcd",
+            name:"John Doe",
+            teacher: "Luthor Doe"
+        }
     }
 
     @Put('/:studentId')
     updateStudent(
         @Param('studentId') studentId : string,
-        @Body() body
-    ) {
-        return `Update Student With Id of ${studentId} With Data of ${JSON.stringify(body)}`;
+        @Body() body: UpdateStudentDto
+    ):StudentResponseDto {
+        return {
+            id: "abcd",
+            name:"John Doe",
+            teacher: "Luthor Doe"
+        };
     }
 }
